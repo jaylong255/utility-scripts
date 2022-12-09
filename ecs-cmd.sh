@@ -9,9 +9,9 @@ echo "Selecting AWS profile by project name."
 export AWS_PROFILE=$PROJECT_NAME
 
 echo "Retrieving a task arn for a single running service container."
-TASK_ARN=$(aws ecs list-tasks --region $AWS_REGION --cluster $PROJECT_NAME-$ENV-$APP --service $PROJECT_NAME-$ENV-$APP-app --query 'taskArns[0]' --output text)
+TASK_ARN=$(aws ecs list-tasks --region $AWS_REGION --cluster $STACK-$ENV-$APP --service $STACK-$ENV-$APP-app --query 'taskArns[0]' --output text)
 
 echo $TASK_ARN
 
 echo "Running command on a container by task arn."
-aws ecs execute-command --region $AWS_REGION --cluster $PROJECT_NAME-$ENV-$APP --container $CONTAINER --command "$COMMAND" --interactive --task $TASK_ARN
+aws ecs execute-command --region $AWS_REGION --cluster $STACK-$ENV-$APP --container $CONTAINER --command "$COMMAND" --interactive --task $TASK_ARN
